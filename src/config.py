@@ -30,7 +30,7 @@ def config():
     res = cursor.execute(query)
     printc("[green][+][/green] Table 'secrets' created")
 
-    query = "CREATE TABLE pm.entries (sitename TEXT NOT NULL, siteurl TEXT NOT NULL, email TEXT, username TEXT, password TEXT NOT NULL)"
+    query = "CREATE TABLE pm.entries (sitename TEXT NOT NULL UNIQUE, siteurl TEXT NOT NULL, email TEXT, username TEXT, password TEXT NOT NULL)"
     res = cursor.execute(query)
     printc("[green][+][/green] Table 'entries' created")
 
