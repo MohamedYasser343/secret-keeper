@@ -30,7 +30,7 @@ def config():
     res = cursor.execute(query)
     printc("[green][+][/green] Table 'secrets' created")
 
-    query = "CREATE TABLE pm.entries (sitename TEXT NOT NULL UNIQUE, siteurl TEXT NOT NULL, email TEXT, username TEXT, password TEXT NOT NULL)"
+    query = "CREATE TABLE pm.entries (sitename TEXT NOT NULL UNIQUE, siteurl TEXT, email TEXT, username TEXT, password TEXT NOT NULL)"
     res = cursor.execute(query)
     printc("[green][+][/green] Table 'entries' created")
 
@@ -57,5 +57,17 @@ def config():
     printc("[green][+][/green] Configured successfully!")
     db.close()
 
+
+print("""
+ _______  _______  _______  _______  _______ _________   _        _______  _______  _______  _______  _______ 
+(  ____ \(  ____ \(  ____ \(  ____ )(  ____ \\__   __/  | \    /\(  ____ \(  ____ \(  ____ )(  ____ \(  ____ )
+| (    \/| (    \/| (    \/| (    )|| (    \/   ) (     |  \  / /| (    \/| (    \/| (    )|| (    \/| (    )|
+| (_____ | (__    | |      | (____)|| (__       | |     |  (_/ / | (__    | (__    | (____)|| (__    | (____)|
+(_____  )|  __)   | |      |     __)|  __)      | |     |   _ (  |  __)   |  __)   |  _____)|  __)   |     __)
+      ) || (      | |      | (\ (   | (         | |     |  ( \ \ | (      | (      | (      | (      | (\ (   
+/\____) || (____/\| (____/\| ) \ \__| (____/\   | |     |  /  \ \| (____/\| (____/\| )      | (____/\| ) \ \__
+\_______)(_______/(_______/|/   \__/(_______/   )_(     |_/    \/(_______/(_______/|/       (_______/|/   \__/
+                                                                                                              
+""")
 
 config()
