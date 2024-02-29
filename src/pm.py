@@ -29,17 +29,17 @@ def main():
     parser = argparse.ArgumentParser(description='Password Manager')
 
     parser.add_argument('option', help='(a)dd / (e)xtract / (g)enerate')
-    parser.add_argument("-n", "--name", help="Site name")
-    parser.add_argument("-u", "--url", help="Site URL")
+    parser.add_argument("-n", "--sitename", help="Site name")
+    parser.add_argument("-u", "--siteurl", help="Site URL")
     parser.add_argument("-e", "--email", help="Email")
-    parser.add_argument("-l", "--login", help="Username")
+    parser.add_argument("-l", "--username", help="Username")
     parser.add_argument("--length", help="Length of the password to generate", type=int)
     parser.add_argument("-c", "--copy", action='store_true', help='Copy password to clipboard')
 
     args = parser.parse_args()
 
     if args.option in ["add", "a"]:
-        required_fields = ['name', 'url', 'login']
+        required_fields = ['sitename', 'siteurl', 'username']
         missing_fields = [field for field in required_fields if getattr(args, field) is None]
         if missing_fields:
             printc("[red][!] Missing required fields: {} [/red]".format(', '.join(missing_fields)))
@@ -49,20 +49,16 @@ def main():
 
         res = inputAndValidateMasterPassword()
         if res:
-            utils.add.addEntry(res[0], res[1], args.name, args.url, args.email, args.login)
+            utils.add.addEntry(res[0], res[1], args.sitename, args.siteurl, args.email, args.username)
 
     elif args.option in ["extract", "e"]:
         res = inputAndValidateMasterPassword()
 
-        search = {key: getattr(args, key) for key in ['name', 'url', 'email', 'login'] if getattr(args, key) is not None}
+        search = {key: getattr(args, key) for key in ['sitename', 'siteurl', 'email', 'username'] if getattr(args, key) is not None}
         if res:
             utils.retrieve.retrieveEntries(res[0], res[1], search, decryptPassword=args.copy)
 
     elif args.option in ["generate", "g"]:
-        if args.length is None:
-            printc("[red][!] Specify the length of the password to generate (--length) [/red]")
-            return
-
         password = utils.generate.generatePassword(args.length)
         pyperclip.copy(password)
         printc("[green][+] Password generated and copied to clipboard [/green]")

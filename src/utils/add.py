@@ -4,6 +4,7 @@ from Crypto.Hash import SHA512
 from rich import print as printc
 
 import utils.aesutil
+import utils.generate
 from utils.dbConfig import dbconfig
 
 
@@ -13,9 +14,9 @@ def computeMasterKey(mp, ds):
     key = PBKDF2(password, salt, 32, count=1000000, hmac_hash_module=SHA512)
     return key
 
-def addEntry(mp, ds, sitename, siteurl, email, username, ):
+def addEntry(mp, ds, sitename, siteurl, email, username):
     # get the password
-    password = getpass("Password: ")
+    password = utils.generate.generatePassword()
 
     mk = computeMasterKey(mp, ds)
     encrypted = utils.aesutil.encrypt(key=mk, source=password, keyType="bytes")
